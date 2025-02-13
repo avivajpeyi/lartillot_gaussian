@@ -8,13 +8,15 @@ class LartillotGaussianModel:
         self.v = v
 
     @property
-    def lnZ(self)->float:
+    def lnZ(self) -> float:
         v, d = self.v, self.d
         return np.log(np.power(2.0 * np.pi * (1.0 + v), -d / 2.0))
 
     def log_likelihood(self, theta: np.ndarray) -> float:
         v, d = self.v, self.d
-        return - (d / 2) * np.log(2 * np.pi * v) - np.sum(theta ** 2, axis=1) / (2 * v)
+        return -(d / 2) * np.log(2 * np.pi * v) - np.sum(
+            theta**2, axis=1
+        ) / (2 * v)
 
     def log_prior(self, theta: np.ndarray) -> float:
         return np.sum(norm.logpdf(theta, loc=0, scale=1), axis=1)
@@ -22,9 +24,13 @@ class LartillotGaussianModel:
     def log_posterior(self, theta: np.ndarray) -> float:
         v, d = self.v, self.d
         sigma2 = v / (1 + v)  # Posterior variance
-        return - (d / 2) * np.log(2 * np.pi * sigma2) - np.sum(theta ** 2, axis=1) / (2 * sigma2)
+        return -(d / 2) * np.log(2 * np.pi * sigma2) - np.sum(
+            theta**2, axis=1
+        ) / (2 * sigma2)
 
-    def simulate_posterior_samples(self, n:int, beta:float=1.0) -> np.ndarray:
+    def simulate_posterior_samples(
+        self, n: int, beta: float = 1.0
+    ) -> np.ndarray:
         v, d = self.v, self.d
         mean = np.zeros(d)
         std = np.sqrt(v / (v + beta))

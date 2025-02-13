@@ -13,9 +13,10 @@ def test_lartillot_model():
     lnp = model.log_posterior(x)
     lnp_2 = model.log_prior(x) + model.log_likelihood(x) - model.lnZ
     np.testing.assert_allclose(
-        lnp, lnp_2,
+        lnp,
+        lnp_2,
         rtol=1e-6,
-        err_msg="Log-likelihood + Log-prior - lnZ does not match Log-posterior!"
+        err_msg="Log-likelihood + Log-prior - lnZ does not match Log-posterior!",
     )
     assert x.shape == (1000, 1), "Samples should have the right shape"
     plt.figure(figsize=(3, 2.5))

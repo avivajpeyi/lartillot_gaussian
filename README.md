@@ -1,7 +1,9 @@
 # Lartillot Gaussian model
 
+![PyPI](https://img.shields.io/pypi/v/lartillot_gaussian)
 
-The multi-dimensional Gaussian model from [Lartillot et al '06] is useful for testing Bayesian applications.
+
+The multidimensional Gaussian model from [Lartillot et al '06] is useful for testing Bayesian applications.
 
 The model is parameterised by a vector $\theta = (\theta_1, \theta_2, \ldots, \theta_d)$ of dimension $d$. 
 The prior on $\theta$ is a product of independent normals with a null mean and unit variance. 
