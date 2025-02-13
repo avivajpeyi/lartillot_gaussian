@@ -8,6 +8,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 def test_lartillot_model():
     model = LartillotGaussianModel(d=1, v=1)
+
     x = model.simulate_posterior_samples(1000)
     x = np.sort(x, axis=0)
     lnp = model.log_posterior(x)
@@ -24,3 +25,12 @@ def test_lartillot_model():
     plt.plot(x, np.exp(lnp), color="tab:red")
     plt.xlabel("x")
     plt.savefig(f"{HERE}/posterior_samples.png")
+
+def test_chains():
+    d, nchains, nsamp = 4, 2, 100
+    model = LartillotGaussianModel(d=d, v=1)
+    chains = model.generate_chains(nsamp, nchains=nchains)
+    assert chains.lnl.shape == (nchains, nsamp), "lnl should have the right shape"
+    assert chains.samples.shape == (nchains, nsamp, d), "samples should have the right shape"
+
+
