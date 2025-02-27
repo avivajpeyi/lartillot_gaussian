@@ -33,4 +33,9 @@ def test_chains():
     assert chains.lnl.shape == (nchains, nsamp), "lnl should have the right shape"
     assert chains.samples.shape == (nchains, nsamp, d), "samples should have the right shape"
 
+    lnl_chains = model.generate_lnl_chains(4, np.array([0.1,0.4,0.9]))
 
+def test_version():
+    from lartillot_gaussian._version import __version__
+
+    assert isinstance(__version__, str)
